@@ -17,10 +17,13 @@ import com.model2.mvc.service.product.ProductService;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:config/context-common.xml",
-		"classpath:config/context-aspect.xml",
-		"classpath:config/context-mybatis.xml",
-		"classpath:config/context-transaction.xml" })
+//==> Meta-Data 를 다양하게 Wiring 하자...
+//@ContextConfiguration(locations = { "classpath:config/context-*.xml" })
+@ContextConfiguration	(locations = {	"classpath:config/context-common.xml",
+																	"classpath:config/context-aspect.xml",
+																	"classpath:config/context-mybatis.xml",
+																	"classpath:config/context-transaction.xml" })
+//@ContextConfiguration(locations = { "classpath:config/context-common.xml" })
 public class ProductServiceTest {
 
 	//==>@RunWith,@ContextConfiguration 이용 Wiring, Test 할 instance DI
@@ -58,16 +61,7 @@ public class ProductServiceTest {
     public void testGetProduct() throws Exception {
 		
 		Product product = new Product();
-		//==> 필요하다면...
-		/*
-		product.setProdNo(10009);
-		product.setProdName("testProductName");
-		product.setProdDetail("testProductDetail");
-		product.setManuDate("testDate");
-		product.setPrice(2000);
-		product.setFileName("testImage");
-		*/
-		
+
 		product = productService.getProduct(10009);
 
 		//==> console 확인
@@ -88,14 +82,6 @@ public class ProductServiceTest {
 		 
 		 Product product= productService.getProduct(10009);
 		Assert.assertNotNull(product);
-		
-		/*
-		Assert.assertEquals("testProductName", product.getProdName());
-		Assert.assertEquals("testProductDetail", product.getProdDetail());
-		Assert.assertEquals("testDate", product.getManuDate());
-		Assert.assertEquals(2000, product.getPrice());
-		Assert.assertEquals("testImage", product.getFileName());
-		*/
 
 		product.setProdName("updateName");
 		product.setProdDetail("updateDetail");
@@ -211,28 +197,5 @@ public class ProductServiceTest {
 	 	System.out.println("=======================================");
 	 	
 	 }	 
-	 
-	@Test
-		 public void testGetProductListByPrice() throws Exception{
-			 
-		 	Search search = new Search();
-		 	search.setCurrentPage(1);
-		 	search.setPageSize(3);
-		 	search.setSearchCondition("2");
-		 	search.setSearchKeyword("2000");
-		 	Map<String,Object> map = productService.getProductList(search);
-		 	
-		 	List<Product> list = (List<Product>)map.get("list");
-		 	Assert.assertEquals(1, list.size());
-		 	
-			//==> console 확인
-		 	System.out.println("list:"+list);
-		 	
-		 	Integer totalCount = (Integer)map.get("totalCount");
-		 	System.out.println(totalCount);
-		 	
-		 	System.out.println("=======================================");
-		 	
-		 }	 
 
 }
