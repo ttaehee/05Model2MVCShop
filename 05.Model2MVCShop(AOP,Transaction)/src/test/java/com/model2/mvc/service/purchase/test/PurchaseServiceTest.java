@@ -166,10 +166,10 @@ public class PurchaseServiceTest {
 	 	search.setCurrentPage(1);
 	 	search.setPageSize(3);
 	 	
-	 	Map<String,Object> map = purchaseService.getPurchaseList(search, "testUser");
+	 	Map<String,Object> map = purchaseService.getPurchaseList(search, "user13");
 	 	
 	 	List<Object> list = (List<Object>)map.get("list");
-	 	Assert.assertEquals(2, list.size());
+	 	Assert.assertEquals(1, list.size());
 	 	
 		//==> console »Æ¿Œ
 	 	System.out.println("list:"+list);
